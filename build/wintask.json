@@ -1,0 +1,13 @@
+{
+    "printHi": {
+        "commands": [
+            "echo hello"
+        ]
+    },
+    "print2p2": {
+        "commands": [
+            "echo hello",
+            "ec"
+        ]
+    }
+}
