@@ -1,4 +1,5 @@
 #include "wintask.h"
+#include <iostream>
 
 int EXITCODE_TASK_NOT_EXIST = 1;
 int EXITCODE_SUCCESS = 0;
@@ -27,6 +28,43 @@ int WinTask::RunTask(std::string task)
             return EXITCODE_ERROR_IN_TASK;
         }
     }
+
+    return EXITCODE_SUCCESS;
+}
+
+int WinTask::ShowInformation(std::string task)
+{
+    if (!file.contains(task)){
+        return EXITCODE_TASK_NOT_EXIST;
+    }
+
+    json taskObject = file[task];
+
+    std::cout << "<----------------------------->" << "\n";
+
+    std::string taskDescription = "No description specified.";
+    std::string taskPurpose = "No purpose specified.";
+
+    if (taskObject.contains("description")){
+        taskDescription = taskObject["description"];
+    }
+    
+    if (taskObject.contains("purpose")){
+        taskPurpose = taskObject["purpose"];
+    }
+    
+    std::cout << "| Task description -- " << taskDescription << "\n";
+    std::cout << "| Task purpose -- " << taskPurpose << "\n";
+
+    std::vector<std::string> commands = taskObject["commands"];
+
+    if (commands.empty()) return 0;
+
+    std::cout << "| Task commands :: " << "\n";
+    for (std::string command : commands){
+        std::cout << "< -- " << command << "\n";
+    }
+    std::cout << "<----------------------------->" << "\n";
 
     return EXITCODE_SUCCESS;
 }

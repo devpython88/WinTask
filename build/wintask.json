@@ -1,5 +1,7 @@
 {
     "printHi": {
+        "description": "Prints hello in the console.",
+        "purpose": "Print hello",
         "commands": [
             "echo hello"
         ]

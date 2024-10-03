@@ -10,6 +10,7 @@ class WinTask {
     public:
     WinTask(json main): file(main) {}
     int RunTask(std::string task);
+    int ShowInformation(std::string task);
 };
 
 
