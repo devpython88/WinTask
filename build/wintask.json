@@ -1,15 +1,14 @@
 {
-    "printHi": {
-        "description": "Prints hello in the console.",
-        "purpose": "Print hello",
-        "commands": [
-            "echo hello"
-        ]
+    "variables": {
+        "name": "Jake",
+        "age": 17,
+        "gender": "Croissant"
     },
-    "print2p2": {
+    "print": {
         "commands": [
-            "echo hello",
-            "ec"
+            "echo I am ${name}.",
+            "echo I am ${age} years old.",
+            "echo i am a ${gender}"
         ]
     }
 }
