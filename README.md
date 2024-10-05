@@ -28,3 +28,19 @@ Example:<br>
 Lastly, to run a task, obvisouly make sure you're in the folder where you created the .json file.<br>
 Run `<install-dir>\wintask.exe /run <task-name>`<br>
 Example: `C:\WinTask\wintask.exe /run print_hello` and `C:\WinTask\wintask.exe /run print_hi`
+
+
+
+## Support for Linux and macOS
+Unfortunately, there isn't support for these OSs rn.<br>
+But you can compile the source (Its simple)<br>
+Here's how:
+1. Clone the repository
+First install git, Linux: `apt/dnf/yum install git` or `pacman -S git`, macOS From the web or `brew install git`
+Then clone: `git clone https://github.com/devpython88/WinTask.git`
+2. Compile
+First, cd to the directory where wintask is cloned.
+Then in the directory, cd to build.
+Finally, run `make -f ../Makefile` to compile.
+Make sure you have make installed.
+That's it!
