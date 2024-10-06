@@ -137,7 +137,6 @@ int main(int argc, char *argv[])
 	{
 		std::cout << "WinTask " << VERSION << " by devpython88.\n";
 	}
-
 	else if (action == "/new")
 	{
 		return CrumbMain();
