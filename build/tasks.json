@@ -1,0 +1,10 @@
+{
+    "pr": {
+        "commands": [
+            "echo ${name}"
+        ]
+    },
+    "variables": {
+        "name": "jake"
+    }
+}

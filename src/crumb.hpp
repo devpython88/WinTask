@@ -6,10 +6,75 @@
 
 using json = nlohmann::json;
 
+
+/* ADD TASK */
+
+inline void AddTask_Crumb(json* j)
+{
+  std::string taskName;
+  std::vector<std::string> taskCommands;
+
+  std::cout << "Task name --> ";
+  std::cin >> taskName;
+
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  while (true)
+  {
+    std::string cmd;
+    std::cout << "Enter command (or ! to end adding commands) -->";
+
+    std::getline(std::cin, cmd);
+
+    if (cmd != "!")
+    {
+      taskCommands.push_back(cmd);
+      continue;
+    }
+
+    break;
+  }
+
+  json obj;
+
+  obj["commands"] = taskCommands;
+
+  j->emplace(taskName, obj);
+}
+
+/* ADD VARIABLE */
+
+inline void AddVar_Crumb(json *j){
+  std::string variableName;
+  std::string variableValue;
+  
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+  std::cout << "Enter the variable name --> ";
+  std::getline(std::cin, variableName); 
+ 
+  std::cout << "Enter the variable value --> ";
+  std::getline(std::cin, variableValue);
+
+  if (!j->contains("variables")){
+    j->emplace("variables", json{{variableName, variableValue}});
+    return;
+  }
+
+  j->at("variables").emplace(json{variableName, variableValue});
+}
+
+
+
+
+
+
+
+
 inline int CrumbMain()
 {
-  std::cout << "Crumb Beta 1" << "\n";
-  std::cout << "Type `new` to add a new task\n.";
+  std::cout << "Crumb Beta 2" << "\n";
+  std::cout << "Type `new` to add a new task.\n";
+  std::cout << "Type `var` to add a new variable.\n";
   std::cout << "Type `exit` to exit and create the config file.\n";
 
   std::string command;
@@ -22,34 +87,11 @@ inline int CrumbMain()
 
     if (command == "new")
     {
-      std::string taskName;
-      std::vector<std::string> taskCommands;
+      AddTask_Crumb(&j);
+    }
 
-      std::cout << "Task name --> ";
-      std::cin >> taskName;
-
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-      while (true)
-      {
-        std::string cmd;
-        std::cout << "Enter command (or ! to end adding commands) -->";
-
-        std::getline(std::cin, cmd);
-
-        if (cmd != "!")
-        {
-          taskCommands.push_back(cmd);
-          continue;
-        }
-
-        break;
-      }
-
-      json obj;
-
-      obj["commands"] = taskCommands;
-
-      j[taskName] = obj;
+    else if (command == "var"){
+      AddVar_Crumb(&j);
     }
 
     else if (command == "exit")

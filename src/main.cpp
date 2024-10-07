@@ -6,7 +6,28 @@
 
 namespace fs = std::filesystem;
 
-std::string VERSION = "v1.52";
+std::string VERSION = "v1.6.1";
+
+std::ifstream getConfig(std::string configFilePath, int argc, char *argv[])
+{
+	if (!fs::exists(configFilePath))
+	{
+		std::cerr << "The specified config file `" + configFilePath + "` does not exist.\n";
+		exit(1);
+	}
+
+	
+	std::ifstream fl(configFilePath);
+
+	if (!fl.is_open())
+	{
+		std::cerr << "Error occured while reading config!\n";
+		fl.close();
+		exit(1);
+	}
+
+	return fl;
+}
 
 int main(int argc, char *argv[])
 {
@@ -24,22 +45,13 @@ int main(int argc, char *argv[])
 			return 1;
 		}
 
-		if (!fs::exists("wintask.json"))
-		{
-			std::cerr << "There is no wintask.json file in the current directory.\n";
-			return 1;
-		}
+		std::string configFilePath = "wintask.json";
 
-		std::ifstream fl("wintask.json");
-
-		if (!fl.is_open())
-		{
-			std::cerr << "Error occured while reading config!\n";
-			fl.close();
-			return 1;
-		}
+		if (argc == 4) configFilePath = argv[3];
 
 		json f;
+
+		std::ifstream fl = getConfig(configFilePath, argc, argv);
 		fl >> f;
 
 		fl.close();
@@ -74,24 +86,15 @@ int main(int argc, char *argv[])
 			return 1;
 		}
 
-		if (!fs::exists("wintask.json"))
-		{
-			std::cerr << "There is no wintask.json file in the current directory.\n";
-			return 1;
-		}
+		std::string configFilePath = "wintask.json";
 
-		std::ifstream fl("wintask.json");
-
-		if (!fl.is_open())
-		{
-			std::cerr << "Error occured while reading config!\n";
-			fl.close();
-			return 1;
-		}
+		if (argc == 4) configFilePath = argv[3];
 
 		json f;
-		fl >> f;
 
+		std::ifstream fl = getConfig(configFilePath, argc, argv);
+
+		fl >> f;
 		fl.close();
 
 		WinTask winTask(f);
@@ -104,23 +107,15 @@ int main(int argc, char *argv[])
 	}
 
 	else if (action == "/list")
-	{
-		if (!fs::exists("wintask.json"))
-		{
-			std::cerr << "There is no wintask.json file in the current directory.\n";
-			return 1;
-		}
+	{	
+		std::string configFilePath = "wintask.json";
 
-		std::ifstream fl("wintask.json");
-
-		if (!fl.is_open())
-		{
-			std::cerr << "Error occured while reading config!\n";
-			fl.close();
-			return 1;
-		}
+		if (argc == 4) configFilePath = argv[3];
 
 		json f;
+
+		std::ifstream fl = getConfig(configFilePath, argc, argv);
+
 		fl >> f;
 
 		fl.close();
