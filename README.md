@@ -1,3 +1,5 @@
+<img src="/LOGO.png" width="400" />
+
 # WinTask
 A very lightweight CLI Command Task Manager for Windows.
 
