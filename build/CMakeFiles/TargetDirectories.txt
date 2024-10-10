@@ -1,0 +1,3 @@
+D:/CPP/tools/WinTask/build/CMakeFiles/wintask.dir
+D:/CPP/tools/WinTask/build/CMakeFiles/edit_cache.dir
+D:/CPP/tools/WinTask/build/CMakeFiles/rebuild_cache.dir

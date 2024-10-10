@@ -1,5 +1,4 @@
-#if !defined(CRUMB_HPP)
-#define CRUMB_HPP
+#pragma once
 #include <iostream>
 #include "json.hpp"
 #include <fstream>
@@ -18,6 +17,7 @@ inline void AddTask_Crumb(json* j)
   std::cin >> taskName;
 
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  
   while (true)
   {
     std::string cmd;
@@ -118,4 +118,3 @@ inline int CrumbMain()
   return 0;
 }
 
-#endif // CRUMB_HPP

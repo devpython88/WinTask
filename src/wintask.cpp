@@ -7,14 +7,14 @@ int EXITCODE_SUCCESS = 0;
 int EXITCODE_ERROR_IN_TASK = 2;
 int EXITCODE_NO_COMMANDS = 3;
 
-int WinTask::RunTask(std::string task)
+int WinTask::RunTask(std::string task, json fl)
 {
-    if (!file.contains(task))
+    if (!fl.contains(task))
     {
         return EXITCODE_TASK_NOT_EXIST;
     }
 
-    json taskObject = file[task];
+    json taskObject = fl[task];
 
     if (!taskObject.contains("commands"))
     {
@@ -28,6 +28,8 @@ int WinTask::RunTask(std::string task)
         std::string command = commands[i];
 
         std::string newCmd = FormatText(command);
+
+        if (newCmd == "") continue;
 
         int code = system(newCmd.c_str());
         if (code != 0)
@@ -103,5 +105,25 @@ std::string WinTask::FormatText(std::string text)
         newString = std::regex_replace(newString, std::regex(pattern), replacement);
     }
 
+    for (auto &fnc : functions.items()){
+        std::string pattern = "@" + fnc.key();
+        int timesCalled;
+
+        if ((timesCalled = newString.find(pattern)) != std::string::npos){
+            newString = "";
+            int i = 1;
+
+            do {
+                CallFunction(fnc.key());
+                i++;
+            } while (i <= timesCalled);
+        }
+    }
+
     return newString;
+}
+
+void WinTask::CallFunction(std::string functionName)
+{
+    RunTask(functionName, functions);
 }

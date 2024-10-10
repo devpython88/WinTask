@@ -1,12 +1,12 @@
 #include <iostream>
-#include <fstream>
 #include <filesystem>
 #include "wintask.h"
 #include "crumb.hpp"
+#include "configTemplates.hpp"
 
 namespace fs = std::filesystem;
 
-std::string VERSION = "v1.6.1";
+std::string VERSION = "v1.7";
 
 std::ifstream getConfig(std::string configFilePath, int argc, char *argv[])
 {
@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 		fl.close();
 
 		WinTask winTask(f);
-		int code = winTask.RunTask(argv[2]);
+		int code = winTask.RunTask(argv[2], winTask.file);
 
 		switch (code)
 		{
@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
 	{	
 		std::string configFilePath = "wintask.json";
 
-		if (argc == 4) configFilePath = argv[3];
+		if (argc == 3) configFilePath = argv[2];
 
 		json f;
 
@@ -132,6 +132,24 @@ int main(int argc, char *argv[])
 	{
 		std::cout << "WinTask " << VERSION << " by devpython88.\n";
 	}
+
+	else if (action == "/gen"){
+		if (argc == 2){
+			std::cerr << "No template provided.\n";
+			std::cerr << "Templates: basic\n";
+			return 1;
+		}
+		std::ofstream file("wintask.json");
+
+		if (!file.is_open()){
+			std::cerr << "Unable to create wintask.json\n";
+			return 1;
+		}
+
+		file << Templates::basic();
+		file.close();
+	}
+
 	else if (action == "/new")
 	{
 		return CrumbMain();
