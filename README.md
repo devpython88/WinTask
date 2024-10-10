@@ -36,13 +36,14 @@ Example: `C:\WinTask\wintask.exe /run print_hello` and `C:\WinTask\wintask.exe /
 ## Support for Linux and macOS
 Unfortunately, there isn't support for these OSs rn.<br>
 But you can compile the source (Its simple)<br>
-Here's how:
-1. Clone the repository
-First install git, Linux: `apt/dnf/yum install git` or `pacman -S git`, macOS From the web or `brew install git`
-Then clone: `git clone https://github.com/devpython88/WinTask.git`
-2. Compile
-First, cd to the directory where wintask is cloned.
-Then in the directory, cd to build.
-Finally, run `make -f ../Makefile` to compile.
-Make sure you have make installed.
-That's it!
+- Here's how:
+1. Install git and ninja
+> Linux: "dnf/yum/apt install git ninja" or "pacman -S git ninja"
+> macOS: "brew install git ninja"
+2. Clone repository
+> Clone the repository using `git clone https://github.com/devpython88/WinTask`
+3. Change directory
+> CD into build using `cd /path/to/folder/where/wintask/is/cloned/` and then `cd build`
+4. Build
+> Build by running `ninja`, it'll take a few minutes
+5. Done.
